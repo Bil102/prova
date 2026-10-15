@@ -12,7 +12,8 @@
   localizza.py monta      progetti/spot01        6-7. → montaggio.mp4
   localizza.py musica     progetti/spot01        8. → con_musica.mp4
   localizza.py esporta    progetti/spot01        9. → video_finale_it.mp4
-  localizza.py tutto      progetti/spot01        esegue in sequenza, si ferma al primo intoppo
+  localizza.py tutto      progetti/spot01        esegue 2→5 in sequenza (montaggio manuale in CapCut);
+                                                 `--a esporta` per proseguire con montaggio/musica/export
 """
 
 from __future__ import annotations
@@ -86,7 +87,7 @@ def esegui_step(nome: str, p: Progetto, a) -> int:
 
 def cmd_tutto(p: Progetto, a) -> int:
     i0 = STEP.index(a.da) if a.da else 0
-    i1 = STEP.index(a.a) + 1 if a.a else len(STEP)
+    i1 = STEP.index(a.a or "voce") + 1
     for nome in STEP[i0:i1]:
         if nome == "musica" and not p.sezione("musica").get("file"):
             print("· musica: nessun file configurato, step saltato")
@@ -119,10 +120,10 @@ def main(argv: list[str] | None = None) -> int:
             s.add_argument("--solo", type=int, help="rigenera solo il blocco N")
             s.add_argument("--forza", action="store_true", help="rigenera tutti i blocchi")
 
-    s = sub.add_parser("tutto", help="esegue gli step in sequenza")
+    s = sub.add_parser("tutto", help="esegue gli step in sequenza (di default fino a voce)")
     s.add_argument("progetto")
     s.add_argument("--da", choices=STEP)
-    s.add_argument("--a", choices=STEP)
+    s.add_argument("--a", choices=STEP, help="ultimo step da eseguire (default: voce)")
 
     s = sub.add_parser("grafica", help="crea overlay_NOME.png da un testo (\\n per andare a capo)")
     s.add_argument("progetto")

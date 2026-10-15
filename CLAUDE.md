@@ -4,6 +4,10 @@ Adattamento di video pubblicitari americani al mercato italiano. Pipeline a step
 eseguibile da riga di comando con `python3 localizza.py <step> progetti/<nome>`; tra uno step
 e l'altro l'utente può intervenire a mano sui file del progetto.
 
+Divisione del lavoro: Claude gestisce gli step 2–5 (pulizia sottotitoli, trascrizione,
+adattamento, voce); montaggio, B-roll, musica ed export li fa l'utente in CapCut. Non lanciare
+`monta`/`musica`/`esporta` salvo richiesta esplicita.
+
 ## Regole di adattamento — SEMPRE valide
 
 Ogni volta che traduci, adatti o correggi un testo italiano per questo progetto (in chat o

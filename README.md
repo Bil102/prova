@@ -15,8 +15,13 @@ comando separato: puoi fermarti, correggere a mano un file e ripartire.
 | 8 | Musica | `musica` | `con_musica.mp4` | ffmpeg, con ducking sotto la voce |
 | 9 | Export | `esporta` | `video_finale_it.mp4` | ffmpeg (H.264/AAC, loudness −14 LUFS) |
 
-`stato` mostra cosa è già fatto; `tutto` esegue gli step 2→9 in sequenza e si ferma al primo
-intoppo (es. `tutto progetti/spot01 --da voce` per riprendere da lì).
+**Divisione attuale del lavoro:** gli step 2–5 (sottotitoli, trascrizione, adattamento, voce)
+sono automatizzati; montaggio, B-roll, musica ed export (6–9) si fanno a mano in CapCut partendo
+da `video_clean.mp4` + `voiceover_it.mp3`. Gli step `monta`/`musica`/`esporta` restano disponibili
+se in futuro si vuole automatizzare anche quella parte.
+
+`stato` mostra cosa è già fatto; `tutto` esegue gli step 2→5 in sequenza e si ferma al primo
+intoppo (`--da voce` per riprendere da lì, `--a esporta` per proseguire fino all'export ffmpeg).
 
 ## Setup
 
