@@ -33,16 +33,18 @@ cp .env.example .env      # e inserisci le chiavi API
 
 Prerequisiti da verificare:
 - **ElevenLabs** — chiave in Settings → API Keys; il `voice_id` di ogni voce si copia dalla Voice Library.
-- **Whisper** — `backend = "openai"` (default: serve `OPENAI_API_KEY`, veloce, a pagamento) oppure
-  `backend = "locale"` (`pip install faster-whisper`, gratis, lento senza GPU).
+- **Whisper** — `backend = "locale"` (default: faster-whisper, installato da `requirements.txt`,
+  gratis, qualche minuto per uno spot senza GPU) oppure `backend = "openai"` (serve `OPENAI_API_KEY`).
 - **Claude** — `ANTHROPIC_API_KEY` per lo step `traduci`. In alternativa puoi tradurre in sessione con
   Claude Code: le regole sono già caricate tramite `CLAUDE.md`.
 - **Vmake** — SDK ufficiale incluso in `vendor/` (installato da `requirements.txt`). Chiavi
-  `MT_AK`/`MT_SK` da vmake.ai/developers; poi `[pulizia] metodo = "vmake"`. Il task predefinito è
-  `videoscreenclear` (rimozione testo dal video); l'elenco dei task disponibili si vede con
+  `MT_AK`/`MT_SK` da vmake.ai/developers; `[pulizia] metodo = "vmake"` è il default. Il task predefinito è
+  `SKM0005` (AI Remover Pro; `SKM0003` è la versione standard); l'elenco dei task disponibili si vede con
   `action-api-sdk catalog --media-type video`. Ogni esecuzione consuma quota Vmake; se il polling
   si interrompe, rilanciando `pulisci` si riprende lo stesso lavoro senza ricaricare il video.
   Senza chiavi: `metodo = "manuale"` (video pulito scaricato dal sito e salvato come `video_clean.mp4`).
+  In un ambiente con rete limitata (es. Claude Code cloud) vanno consentiti i domini
+  `*.vmake.ai`, `*.starii.com`, `*.stariidata.com`, `*.aliyuncs.com`.
 
 ## Flusso tipico
 

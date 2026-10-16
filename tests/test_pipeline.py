@@ -28,7 +28,7 @@ def progetto(tmp_path):
     genera(["-f", "lavfi", "-i", "sine=f=500:d=3"], d / "musica.mp3")
     toml = (d / "progetto.toml").read_text()
     toml = toml.replace('genere = ""', 'genere = "uomo"').replace('narratore = "VOICE_ID"', 'narratore = "v1"')
-    toml = toml.replace('metodo = "manuale"', 'metodo = "delogo"\narea = [0, 520, 360, 100]')
+    toml = toml.replace('metodo = "vmake"', 'metodo = "delogo"\narea = [0, 520, 360, 100]', 1)
     toml = toml.replace('file = ""', 'file = "musica.mp3"')
     toml = toml.replace("larghezza = 1080\naltezza = 1920", "larghezza = 540\naltezza = 960")
     toml = toml.replace("# Tim = \"Marco\"", 'Tim = "Marco"')
@@ -183,7 +183,7 @@ def test_pulisci_vmake_sdk(progetto, tmp_path, monkeypatch):
     monkeypatch.setattr(action_api_sdk, "SkillClient", FintoClient)
     monkeypatch.setattr("requests.get", get)
     assert localizza.main(["pulisci", str(d)]) == 0
-    assert chiamate == [("videoscreenclear", str(d / "originale.mp4"))]
+    assert chiamate == [("SKM0005", str(d / "originale.mp4"))]
     assert ff.durata(d / "video_clean.mp4") == pytest.approx(2, abs=0.1)
     assert not (d / ".vmake_task.json").exists()
 

@@ -3,7 +3,9 @@ requests>=2.31
 pillow>=10.0
 # SDK ufficiale Vmake (rimozione sottotitoli), incluso nel repository:
 ./vendor/action_api_sdk-2.0.1-py3-none-any.whl
-# opzionale, solo per [trascrizione] backend = "locale":
-# faster-whisper>=1.0
+# trascrizione locale (backend predefinito); av<16: le versioni più recenti non sono
+# compatibili con faster-whisper 1.2
+faster-whisper>=1.0
+av<16
 # test:
 # pytest>=8

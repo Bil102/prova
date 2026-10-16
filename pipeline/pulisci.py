@@ -3,7 +3,7 @@
 Metodi (progetto.toml, [pulizia] metodo):
   manuale  carichi tu il video su Vmake e salvi il risultato come video_clean.mp4 (default)
   vmake    via API Vmake (SDK ufficiale in vendor/, chiavi MT_AK/MT_SK). Task: [pulizia] vmake_task
-           (default "videoscreenclear"; elenco completo: `action-api-sdk catalog --media-type video`)
+           (default "SKM0005" = AI Remover Pro; elenco completo: `action-api-sdk catalog --media-type video`)
   sfoca    sfocatura di una fascia fissa (area = [x, y, w, h] in pixel)
   delogo   interpolazione ffmpeg della fascia (spesso più pulita della sfocatura su sfondi semplici)
   ritaglia taglia via la fascia in basso (area = [0, y, w, h]: tiene solo la parte sopra y)
@@ -37,7 +37,7 @@ def esegui(p: Progetto, verbose: bool = False) -> None:
     if metodo == "nessuno":
         shutil.copyfile(src, out)
     elif metodo == "vmake":
-        _vmake(p, src, out, cfg.get("vmake_task", "videoscreenclear"))
+        _vmake(p, src, out, cfg.get("vmake_task", "SKM0005"))
     elif metodo in ("sfoca", "delogo", "ritaglia"):
         x, y, w, h = _area(p, cfg)
         if metodo == "sfoca":

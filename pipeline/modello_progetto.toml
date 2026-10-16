@@ -10,13 +10,13 @@ Tim = "Marco"
 Rick = "Marco"
 
 [pulizia]
-metodo = "manuale"     # manuale | vmake | sfoca | delogo | ritaglia | nessuno
-vmake_task = "videoscreenclear"   # task Vmake per metodo = "vmake"
+metodo = "vmake"       # manuale | vmake | sfoca | delogo | ritaglia | nessuno
+vmake_task = "SKM0005"   # task Vmake per metodo = "vmake" (SKM0005 = AI Remover Pro)
 # area dei sottotitoli in pixel [x, y, larghezza, altezza] (per sfoca/delogo/ritaglia)
 # area = [0, 1450, 1080, 260]
 
 [trascrizione]
-backend = "openai"     # openai (API, serve OPENAI_API_KEY) | locale (faster-whisper)
+backend = "locale"     # openai (API, serve OPENAI_API_KEY) | locale (faster-whisper)
 modello_locale = "large-v3"
 lingua = "en"
 
