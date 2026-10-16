@@ -5,9 +5,9 @@ genere = ""            # "uomo" o "donna" — OBBLIGATORIO prima di `traduci`
 nome = ""              # nome italiano del narratore, se ne ha uno (es. "Marco")
 
 [nomi]
-# Sostituzioni di nomi già decise per questa serie di contenuti, es.:
-# Tim = "Marco"
-# Rick = "Marco"
+# Sostituzioni di nomi già decise per questa serie di contenuti (vedi regole_adattamento.md)
+Tim = "Marco"
+Rick = "Marco"
 
 [pulizia]
 metodo = "manuale"     # manuale | vmake | sfoca | delogo | ritaglia | nessuno

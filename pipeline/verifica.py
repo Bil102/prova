@@ -11,7 +11,7 @@ from dataclasses import dataclass
 
 from .config import SCRIPT_IT, Progetto
 
-BRAND_CONCORRENTI = ["Calgon", "Beckman", "Afresh", "OxiClean", "Tide"]
+BRAND_CONCORRENTI = ["Calgon", "Beckman", "Beckmann", "Afresh", "OxiClean", "Tide"]
 # nomi del prodotto negli spot originali: nel testo italiano diventano sempre "Rivàiv Dram"
 BRAND_ORIGINALI = ["Uproot", "PrimeDrum", "Prime Drum"]
 RIFERIMENTI_USA = ["Walmart", "Target", "Costco", "Home Depot", "Lowe's", "Walgreens", "CVS", "Kroger",
