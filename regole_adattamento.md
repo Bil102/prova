@@ -8,6 +8,13 @@ Si applicano sempre, senza bisogno di ripeterle.
 - Nome prodotto nel testo finale: **Rivàiv Dram** (versione fonetica per la corretta pronuncia
   inglese "ri-VAIV" da parte di voci italiane in ElevenLabs). NON scrivere mai "ReviveDrum"
   nel testo destinato alla sintesi vocale.
+- Il prodotto pubblicizzato nell'originale (qualunque nome abbia: "Uproot Clean", "PrimeDrum",
+  ecc.) è sempre **Rivàiv Dram**, il brand per cui vengono realizzati tutti i video. Si
+  sostituisce senza segnalarlo né chiederlo.
+- La sostituzione riguarda l'intera dicitura del prodotto, non solo il nome: varianti e
+  descrittori attaccati al nome spariscono. Es. "Uproot Clean Pro Machine" → "Rivàiv Dram"
+  (non "Rivàiv Dram Pro", non "la macchina Rivàiv Dram Pro"). Adattare poi la frase perché
+  suoni naturale in italiano.
 - Le varianti del prodotto (es. "Pro", "Ultra") vanno rimosse, salvo richiesta esplicita.
 - I brand concorrenti citati nell'originale (Calgon, Dr. Beckman, Afresh, OxiClean, Tide, ecc.)
   vanno sostituiti con riferimenti generici: "pastiglia/e del supermercato". NON inventare nomi

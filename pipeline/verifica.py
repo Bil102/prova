@@ -12,6 +12,8 @@ from dataclasses import dataclass
 from .config import SCRIPT_IT, Progetto
 
 BRAND_CONCORRENTI = ["Calgon", "Beckman", "Afresh", "OxiClean", "Tide"]
+# nomi del prodotto negli spot originali: nel testo italiano diventano sempre "Rivàiv Dram"
+BRAND_ORIGINALI = ["Uproot", "PrimeDrum", "Prime Drum"]
 RIFERIMENTI_USA = ["Walmart", "Target", "Costco", "Home Depot", "Lowe's", "Walgreens", "CVS", "Kroger",
                    "Florida", "Texas", "California", "London", "Londra", "EWG"]
 
@@ -41,6 +43,8 @@ def controlla(testo: str, nomi_originali: list[str] = (), brand_extra: list[str]
     cerca(r"\d[\d.,]*\s?(€|euro\b)|€\s?\d[\d.,]*", "AVVISO", "cifra '{}': ok solo dentro una testimonianza personale")
     cerca(r"\d+\s?%", "AVVISO", "percentuale '{}': rimuovere se è uno sconto specifico")
     cerca(r"dermatologicamente\s+testat\w", "AVVISO", "'{}': evitare se il prodotto non è cosmetico")
+    for b in BRAND_ORIGINALI:
+        cerca(rf"\b{re.escape(b)}\b", "ERRORE", "nome prodotto originale '{}' → 'Rivàiv Dram'")
     for b in [*BRAND_CONCORRENTI, *brand_extra]:
         cerca(rf"\b{re.escape(b)}\b", "ERRORE", "brand concorrente '{}' → 'pastiglie del supermercato'")
     for luogo in RIFERIMENTI_USA:
