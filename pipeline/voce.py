@@ -138,8 +138,41 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
     # pausa più lunga solo al cambio di speaker; tra pezzi dello stesso speaker solo un respiro
     pause = [float(cfg.get("pausa_blocchi", 0.3)) if a.speaker != b.speaker
              else float(cfg.get("pausa_paragrafi", 0.15)) for a, b in zip(blocchi, blocchi[1:])]
-    concatena(parti, p.file(VOICEOVER), pause, verbose)
-    print(f"✓ {p.file(VOICEOVER)} ({ff.durata(p.file(VOICEOVER)):.1f}s, {len(parti)} blocchi)")
+    finale = p.file(VOICEOVER)
+    max_pausa = float(cfg.get("max_pausa", 0.2))
+    if max_pausa > 0:
+        grezza = cartella / "voiceover_grezza.mp3"
+        concatena(parti, grezza, pause, verbose)
+        n, tolti = compatta_pause(grezza, finale, float(cfg.get("soglia_silenzio", -30)), max_pausa, verbose)
+        print(f"  pause accorciate a max {max_pausa}s: {n} (−{tolti:.1f}s)")
+    else:
+        concatena(parti, finale, pause, verbose)
+    print(f"✓ {finale} ({ff.durata(finale):.1f}s, {len(parti)} blocchi)")
+
+
+def compatta_pause(src: Path, out: Path, soglia_db: float = -30, max_pausa: float = 0.2,
+                   verbose: bool = False) -> tuple[int, float]:
+    """Accorcia a `max_pausa` secondi ogni pausa più lunga (come il taglio a mano delle pause).
+
+    Restituisce (pause accorciate, secondi tolti)."""
+    import subprocess
+
+    r = subprocess.run(["ffmpeg", "-hide_banner", "-i", str(src), "-af",
+                        f"silencedetect=n={soglia_db}dB:d={max_pausa}", "-f", "null", "-"],
+                       capture_output=True, text=True)
+    inizi = [float(x) for x in re.findall(r"silence_start: ([\d.]+)", r.stderr)]
+    fini = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
+    tagli = []
+    for a, b in zip(inizi, fini):
+        if b - a > max_pausa:  # si tiene metà pausa prima e metà dopo il taglio
+            tagli.append((a + max_pausa / 2, b - max_pausa / 2))
+    if not tagli:
+        ff.esegui(["-i", src, "-c:a", "libmp3lame", "-b:a", "192k", out], verbose)
+        return 0, 0.0
+    togli = "+".join(f"between(t,{a:.3f},{b:.3f})" for a, b in tagli)
+    ff.esegui(["-i", src, "-af", f"aselect='not({togli})',asetpts=N/SR/TB",
+               "-c:a", "libmp3lame", "-b:a", "192k", out], verbose)
+    return len(tagli), sum(b - a for a, b in tagli)
 
 
 def concatena(parti: list[Path], out: Path, pausa: float | list[float], verbose: bool = False) -> None:
