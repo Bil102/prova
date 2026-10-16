@@ -316,3 +316,14 @@ Dove scrivo "nessuna scelta dichiarata" non hai indicato quale usare.
 ## Limiti tecnici emersi sulle grafiche
 - Font disponibili: solo Poppins, Lora, DejaVu, Liberation. Mancano Anton e Bebas Neue (stile condensed dell'originale); usato Poppins Bold.
 - Le immagini caricate a volte non arrivano nel mio ambiente (V14 e "estrai solo la frase"): vanno ricaricate.
+
+## V24. Tecnico: "oggi non tocco una vite" (lavatrice di 3 anni, stesso hook del V12)
+**Hook:** ha smontato centinaia di lavatrici, oggi non tocca una vite; la proprietaria stava per buttarla dopo 3 anni.
+**Proposti:**
+1. HO SMONTATO CENTINAIA DI LAVATRICI. OGGI NON TOCCO UNA VITE
+2. NON BUTTARE LA LAVATRICE PER UN CATTIVO ODORE
+3. SOLO 3 ANNI E VOLEVA GIÀ BUTTARLA. NON SERVIVA
+4. COSÌ I TECNICI SISTEMANO UNA LAVATRICE CHE PUZZA
+5. LA TUA LAVATRICE PUZZA? NON SERVE UN TECNICO
+
+**Preferita mia:** 1. **Scelta tua:** la 2, "perché fa riferimento al cliente".

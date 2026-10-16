@@ -109,6 +109,8 @@ Storico completo (23 video, proposte e scelte): `riferimenti/titoli_grafici_stor
     "HO GESTITO UN RIFUGIO PER 7 ANNI: QUESTO È IL MIO SEGRETO";
   - **imperativo diretto**: "SMETTI DI COMPRARLO SU AMAZON", "NON BUTTARE LA LAVATRICE PER UN
     CATTIVO ODORE".
+  - in generale l'utente preferisce i titoli che **parlano direttamente allo spettatore/cliente**
+    (il suo problema, la sua lavatrice) rispetto a quelli centrati sul narratore.
 - Numeri concreti dell'hook funzionano (3 anni, 25 anni, 80 cani, 7 anni).
 - Generalizza i termini troppo specifici: "odore di muffa" → "cattivo odore".
 - Se l'utente indica un elemento visivo su cui spingere (es. "spingi sull'acqua"), tutte le
