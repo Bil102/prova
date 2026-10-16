@@ -90,9 +90,12 @@ fedeltà è al senso, non alle parole.
 - **Testi più corti:** solo se chiesto, tradurre e poi accorciare (circa 1:30-2:00 di video, o
   metà del testo) mantenendo trama e punti chiave. A volte vengono chiesti anche i **punti
   chiave** del video.
-- **Titoli grafici:** quando li chiede, 3-5 proposte in maiuscolo, brevi, basate sull'hook,
-  con una preferita motivata in una riga. Se la frase è troppo specifica (es. "odore di
-  muffa"), generalizzala.
+- **Titoli grafici (SEMPRE, per ogni video):** subito dopo l'adattamento, senza che l'utente li
+  chieda, proponi 3-5 titoli per la grafica dell'hook: in maiuscolo, brevi (indicativamente
+  max 6-7 parole, leggibili in 2 secondi), basati sull'hook dei primi secondi, con una
+  preferita motivata in una riga. Se la frase è troppo specifica (es. "odore di muffa"),
+  generalizzala. Stesse regole del testo: niente brand originali, niente prezzi. Salvali in
+  `titoli_grafici.md` nella cartella del progetto.
 
 ## Glossario
 

@@ -20,6 +20,9 @@ l'utente debba ripeterle. In particolare, prima di procedere:
 
 Dopo aver scritto o modificato `script_it.txt`, lancia `python3 localizza.py verifica <progetto>`.
 
+Dopo ogni adattamento proponi sempre all'utente 3-5 titoli grafici per l'hook (vedi "Titoli
+grafici" nelle regole) e salvali in `progetti/<nome>/titoli_grafici.md`.
+
 ## Struttura
 - `localizza.py` — CLI (un sottocomando per step, `tutto` per eseguirli in sequenza)
 - `pipeline/` — un modulo per step: `pulisci`, `trascrivi`, `traduci`, `verifica`, `voce`,
