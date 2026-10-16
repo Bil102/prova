@@ -139,7 +139,7 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
     pause = [float(cfg.get("pausa_blocchi", 0.3)) if a.speaker != b.speaker
              else float(cfg.get("pausa_paragrafi", 0.15)) for a, b in zip(blocchi, blocchi[1:])]
     finale = p.file(VOICEOVER)
-    max_pausa = float(cfg.get("max_pausa", 0.2))
+    max_pausa = float(cfg.get("max_pausa", 0.12))
     if max_pausa > 0:
         grezza = cartella / "voiceover_grezza.mp3"
         concatena(parti, grezza, pause, verbose)

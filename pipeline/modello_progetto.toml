@@ -33,11 +33,11 @@ modello = "eleven_multilingual_v2"
 stability = 0.5
 similarity_boost = 0.75
 style = 0.0
-velocita = 1.0         # 0.7–1.2
+velocita = 1.1         # 0.7–1.2 (1.1 approvata: a 1.0 la voce risulta lenta)
 pausa_blocchi = 0.3    # secondi di silenzio tra blocchi di speaker diversi
 pausa_paragrafi = 0.15 # silenzio tra pezzi consecutivi dello stesso speaker
 max_caratteri_blocco = 900  # i testi lunghi si spezzano qui: oltre ~1000 ElevenLabs degrada
-max_pausa = 0.2        # ogni pausa più lunga viene accorciata a questa durata (0 = non toccare)
+max_pausa = 0.12       # ogni pausa più lunga viene accorciata a questa durata (0 = non toccare)
 soglia_silenzio = -30  # dB sotto cui l'audio conta come pausa
 
 [voce.speaker]
