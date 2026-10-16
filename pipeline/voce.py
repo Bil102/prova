@@ -143,14 +143,14 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
     if max_pausa > 0:
         grezza = cartella / "voiceover_grezza.mp3"
         concatena(parti, grezza, pause, verbose)
-        n, tolti = compatta_pause(grezza, finale, float(cfg.get("soglia_silenzio", -30)), max_pausa, verbose)
+        n, tolti = compatta_pause(grezza, finale, float(cfg.get("soglia_silenzio", -40)), max_pausa, verbose)
         print(f"  pause accorciate a max {max_pausa}s: {n} (−{tolti:.1f}s)")
     else:
         concatena(parti, finale, pause, verbose)
     print(f"✓ {finale} ({ff.durata(finale):.1f}s, {len(parti)} blocchi)")
 
 
-def compatta_pause(src: Path, out: Path, soglia_db: float = -30, max_pausa: float = 0.2,
+def compatta_pause(src: Path, out: Path, soglia_db: float = -40, max_pausa: float = 0.12,
                    verbose: bool = False) -> tuple[int, float]:
     """Accorcia a `max_pausa` secondi ogni pausa più lunga (come il taglio a mano delle pause).
 
@@ -164,8 +164,10 @@ def compatta_pause(src: Path, out: Path, soglia_db: float = -30, max_pausa: floa
     fini = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
     tagli = []
     for a, b in zip(inizi, fini):
-        if b - a > max_pausa:  # si tiene metà pausa prima e metà dopo il taglio
-            tagli.append((a + max_pausa / 2, b - max_pausa / 2))
+        if b - a > max_pausa:
+            # due terzi della pausa restano dopo la fine della frase (la coda delle parole
+            # scende piano e tagliarla tronca la frase), un terzo prima della successiva
+            tagli.append((a + max_pausa * 2 / 3, b - max_pausa / 3))
     if not tagli:
         ff.esegui(["-i", src, "-c:a", "libmp3lame", "-b:a", "192k", out], verbose)
         return 0, 0.0
