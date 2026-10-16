@@ -8,6 +8,10 @@ in progetto.toml:
     narratore = "VOICE_ID"
 
 Ogni blocco diventa voce/NN_speaker.mp3; poi vengono concatenati in voiceover_it.mp3.
+I testi lunghi di uno stesso speaker vengono spezzati tra un paragrafo e l'altro in blocchi di
+al massimo `max_caratteri_blocco` (default 900): ElevenLabs su una singola richiesta lunga
+degrada progressivamente (voce sempre più ovattata dopo 3-4 minuti). Il testo dei blocchi
+adiacenti viene passato come contesto, così l'intonazione resta continua.
 I blocchi il cui testo e impostazioni non sono cambiati non vengono rigenerati (niente
 crediti sprecati quando correggi una sola battuta).
 """
@@ -33,14 +37,23 @@ class Blocco:
     testo: str
 
 
-def dividi(script: str) -> list[Blocco]:
+def dividi(script: str, max_caratteri: int = 900) -> list[Blocco]:
     blocchi: list[Blocco] = []
     speaker, righe = "narratore", []
 
     def chiudi():
         testo = re.sub(r"\n{3,}", "\n\n", "\n".join(righe)).strip()
-        if testo:
-            blocchi.append(Blocco(speaker, testo))
+        corrente = ""
+        for par in (x.strip() for x in testo.split("\n\n")):
+            if not par:
+                continue
+            if corrente and len(corrente) + 2 + len(par) > max_caratteri:
+                blocchi.append(Blocco(speaker, corrente))
+                corrente = par
+            else:
+                corrente = f"{corrente}\n\n{par}" if corrente else par
+        if corrente:
+            blocchi.append(Blocco(speaker, corrente))
 
     for riga in script.splitlines():
         m = INTESTAZIONE.match(riga.strip())
@@ -62,7 +75,8 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
 
     cfg = p.sezione("voce")
     voci: dict = cfg.get("speaker", {})
-    blocchi = dividi(p.richiedi(SCRIPT_IT).read_text(encoding="utf-8"))
+    blocchi = dividi(p.richiedi(SCRIPT_IT).read_text(encoding="utf-8"),
+                     int(cfg.get("max_caratteri_blocco", 900)))
     if not blocchi:
         raise ErroreConfig(f"{SCRIPT_IT} è vuoto")
     mancanti = sorted({b.speaker for b in blocchi} - voci.keys())
@@ -121,12 +135,18 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
         meta.write_text(json.dumps({"firma": firma, "speaker": b.speaker, "testo": b.testo},
                                    ensure_ascii=False, indent=2), encoding="utf-8")
 
-    concatena(parti, p.file(VOICEOVER), float(cfg.get("pausa_blocchi", 0.3)), verbose)
+    # pausa più lunga solo al cambio di speaker; tra pezzi dello stesso speaker solo un respiro
+    pause = [float(cfg.get("pausa_blocchi", 0.3)) if a.speaker != b.speaker
+             else float(cfg.get("pausa_paragrafi", 0.15)) for a, b in zip(blocchi, blocchi[1:])]
+    concatena(parti, p.file(VOICEOVER), pause, verbose)
     print(f"✓ {p.file(VOICEOVER)} ({ff.durata(p.file(VOICEOVER)):.1f}s, {len(parti)} blocchi)")
 
 
-def concatena(parti: list[Path], out: Path, pausa: float, verbose: bool = False) -> None:
-    """Concatena i blocchi inserendo `pausa` secondi di silenzio tra uno e l'altro."""
+def concatena(parti: list[Path], out: Path, pausa: float | list[float], verbose: bool = False) -> None:
+    """Concatena i blocchi inserendo `pausa` secondi di silenzio dopo ognuno (tranne l'ultimo).
+
+    `pausa` può essere un valore unico o una lista con la pausa dopo ciascun blocco."""
+    pause = pausa if isinstance(pausa, list) else [pausa] * max(len(parti) - 1, 0)
     if len(parti) == 1:
         ff.esegui(["-i", parti[0], "-c:a", "libmp3lame", "-b:a", "192k", out], verbose)
         return
@@ -134,7 +154,7 @@ def concatena(parti: list[Path], out: Path, pausa: float, verbose: bool = False)
     for i, f in enumerate(parti):
         args += ["-i", f]
         lbl = f"a{i}"
-        pad = f",apad=pad_dur={pausa}" if pausa > 0 and i < len(parti) - 1 else ""
+        pad = f",apad=pad_dur={pause[i]}" if i < len(parti) - 1 and pause[i] > 0 else ""
         etichette.append((f"[{i}:a]aresample=44100,aformat=channel_layouts=mono{pad}[{lbl}]", lbl))
     filtro = ";".join(e for e, _ in etichette) + ";" + "".join(f"[{l}]" for _, l in etichette) \
         + f"concat=n={len(parti)}:v=0:a=1[out]"

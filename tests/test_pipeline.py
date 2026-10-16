@@ -210,3 +210,12 @@ def test_adatta_calcola():
     # troppo lunga anche così → avviso
     p = calcola(100.0, 130.0)
     assert p.video == 1.0 and p.voce == 1.15 and p.avviso
+
+
+def test_dividi_testo_lungo():
+    par = "Questa è una frase di prova abbastanza lunga per il test." * 3
+    testo = "\n\n".join([par] * 20)
+    blocchi = voce.dividi(testo, max_caratteri=900)
+    assert len(blocchi) > 1
+    assert all(len(b.testo) <= 900 for b in blocchi)
+    assert "\n\n".join(b.testo for b in blocchi) == testo  # nessun paragrafo perso o spezzato

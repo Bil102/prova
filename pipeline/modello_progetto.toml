@@ -35,6 +35,8 @@ similarity_boost = 0.75
 style = 0.0
 velocita = 1.0         # 0.7–1.2
 pausa_blocchi = 0.3    # secondi di silenzio tra blocchi di speaker diversi
+pausa_paragrafi = 0.15 # silenzio tra pezzi consecutivi dello stesso speaker
+max_caratteri_blocco = 900  # i testi lunghi si spezzano qui: oltre ~1000 ElevenLabs degrada
 
 [voce.speaker]
 # speaker → voice_id ElevenLabs. Senza intestazioni [Nome] nello script lo speaker è "narratore".
