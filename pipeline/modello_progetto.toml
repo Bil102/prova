@@ -40,6 +40,13 @@ pausa_blocchi = 0.3    # secondi di silenzio tra blocchi di speaker diversi
 # speaker → voice_id ElevenLabs. Senza intestazioni [Nome] nello script lo speaker è "narratore".
 narratore = "VOICE_ID"
 
+[adattamento]
+# step `adatta`: video accelerato fino a velocita_video e voce adattata alla nuova durata;
+# se la voce supererebbe max_velocita_voce, si accelera solo la voce (video invariato)
+velocita_video = 1.1
+max_velocita_voce = 1.15
+coda = 0.5             # secondi di video dopo l'ultima parola
+
 [montaggio]
 adattamento = "auto"   # auto | congela | nessuno  (vedi pipeline/monta.py)
 max_velocita = 1.08    # accelerazione massima della voce se più lunga del video

@@ -194,3 +194,19 @@ def test_pulisci_vmake_senza_chiavi(progetto, monkeypatch):
     monkeypatch.delenv("MT_AK", raising=False)
     monkeypatch.delenv("MT_SK", raising=False)
     assert localizza.main(["pulisci", str(progetto)]) == 1
+
+
+def test_adatta_calcola():
+    from pipeline.adatta import calcola
+    # voce simile al video → video ×1.1, voce adattata alla nuova durata
+    p = calcola(403.5, 412.8)
+    assert p.video == 1.1 and 1.12 < p.voce < 1.14 and not p.avviso
+    # voce più corta del video → video ×1.1, voce invariata
+    p = calcola(100.0, 85.0)
+    assert p.video == 1.1 and p.voce == 1.0  # la voce non viene mai rallentata
+    # voce molto più lunga → solo la voce
+    p = calcola(100.0, 112.0)
+    assert p.video == 1.0 and 1.12 < p.voce <= 1.15 and not p.avviso
+    # troppo lunga anche così → avviso
+    p = calcola(100.0, 130.0)
+    assert p.video == 1.0 and p.voce == 1.15 and p.avviso

@@ -8,11 +8,12 @@
   localizza.py traduci    progetti/spot01        4. Claude → script_it.txt
   localizza.py verifica   progetti/spot01           controllo regole su script_it.txt
   localizza.py voce       progetti/spot01        5. ElevenLabs → voiceover_it.mp3
+  localizza.py adatta     progetti/spot01           velocità video/voce per CapCut → *_adattato
   localizza.py grafica    progetti/spot01 NOME "TESTO"   overlay_NOME.png
   localizza.py monta      progetti/spot01        6-7. → montaggio.mp4
   localizza.py musica     progetti/spot01        8. → con_musica.mp4
   localizza.py esporta    progetti/spot01        9. → video_finale_it.mp4
-  localizza.py tutto      progetti/spot01        esegue 2→5 in sequenza (montaggio manuale in CapCut);
+  localizza.py tutto      progetti/spot01        esegue 2→5 + adatta (montaggio manuale in CapCut);
                                                  `--a esporta` per proseguire con montaggio/musica/export
 """
 
@@ -25,13 +26,13 @@ import sys
 from pathlib import Path
 
 from pipeline import config as C
-from pipeline import esporta, ff, grafica, monta, musica, pulisci, traduci, trascrivi, verifica, voce
+from pipeline import adatta, esporta, ff, grafica, monta, musica, pulisci, traduci, trascrivi, verifica, voce
 from pipeline.config import ErroreConfig, Progetto
 
-STEP = ["pulisci", "trascrivi", "traduci", "voce", "monta", "musica", "esporta"]
+STEP = ["pulisci", "trascrivi", "traduci", "voce", "adatta", "monta", "musica", "esporta"]
 OUTPUT = [
     ("originale", C.ORIGINALE), ("pulisci", C.VIDEO_CLEAN), ("trascrivi", C.TRASCRIZIONE),
-    ("traduci", C.SCRIPT_IT), ("voce", C.VOICEOVER), ("monta", C.MONTAGGIO),
+    ("traduci", C.SCRIPT_IT), ("voce", C.VOICEOVER), ("adatta", C.VOCE_ADATTATA), ("monta", C.MONTAGGIO),
     ("musica", C.CON_MUSICA), ("esporta", C.FINALE),
 ]
 
@@ -76,6 +77,8 @@ def esegui_step(nome: str, p: Progetto, a) -> int:
         return 0 if verifica.esegui(p, v) else 1
     elif nome == "voce":
         voce.esegui(p, solo=getattr(a, "solo", None), forza=getattr(a, "forza", False), verbose=v)
+    elif nome == "adatta":
+        adatta.esegui(p, v)
     elif nome == "monta":
         monta.esegui(p, v)
     elif nome == "musica":
@@ -87,7 +90,7 @@ def esegui_step(nome: str, p: Progetto, a) -> int:
 
 def cmd_tutto(p: Progetto, a) -> int:
     i0 = STEP.index(a.da) if a.da else 0
-    i1 = STEP.index(a.a or "voce") + 1
+    i1 = STEP.index(a.a or "adatta") + 1
     for nome in STEP[i0:i1]:
         if nome == "musica" and not p.sezione("musica").get("file"):
             print("· musica: nessun file configurato, step saltato")
@@ -120,10 +123,10 @@ def main(argv: list[str] | None = None) -> int:
             s.add_argument("--solo", type=int, help="rigenera solo il blocco N")
             s.add_argument("--forza", action="store_true", help="rigenera tutti i blocchi")
 
-    s = sub.add_parser("tutto", help="esegue gli step in sequenza (di default fino a voce)")
+    s = sub.add_parser("tutto", help="esegue gli step in sequenza (di default fino ad adatta)")
     s.add_argument("progetto")
     s.add_argument("--da", choices=STEP)
-    s.add_argument("--a", choices=STEP, help="ultimo step da eseguire (default: voce)")
+    s.add_argument("--a", choices=STEP, help="ultimo step da eseguire (default: adatta)")
 
     s = sub.add_parser("grafica", help="crea overlay_NOME.png da un testo (\\n per andare a capo)")
     s.add_argument("progetto")
