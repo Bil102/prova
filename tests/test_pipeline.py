@@ -219,3 +219,20 @@ def test_dividi_testo_lungo():
     assert len(blocchi) > 1
     assert all(len(b.testo) <= 900 for b in blocchi)
     assert "\n\n".join(b.testo for b in blocchi) == testo  # nessun paragrafo perso o spezzato
+
+
+def test_titolo_banner(progetto):
+    from PIL import Image
+    from pipeline import titolo
+    p = Progetto.apri(progetto)
+    # senza titolo nell'originale: stile predefinito, sfondo trasparente
+    img = Image.open(titolo.banner(p, ["NON BUTTARE LA LAVATRICE", "PER UN CATTIVO ODORE"]))
+    assert img.mode == "RGBA" and img.getpixel((0, 0))[3] == 0
+    # con stile rilevato (banda rossa): banda piena larga quanto il video ×2
+    (p.dir / titolo.STILE).write_text(json.dumps({
+        "larghezza_video": 720, "altezza_video": 900, "contorno": [60, 0, 0],
+        "banda": {"y0": 0.018, "y1": 0.122, "colore": [213, 5, 0]},
+        "righe": [{"centro": 0.049, "altezza": 0.034, "colore": [255, 255, 255]},
+                  {"centro": 0.092, "altezza": 0.033, "colore": [250, 228, 0]}]}))
+    img = Image.open(titolo.banner(p, ["LA CASA DI MIA MAMMA NON HA MAI PUZZATO.", "MI HA SPIEGATO PERCHÉ."]))
+    assert img.width == 1440 and img.getpixel((2, 2))[:3] == (213, 5, 0)

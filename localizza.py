@@ -9,6 +9,8 @@
   localizza.py verifica   progetti/spot01           controllo regole su script_it.txt
   localizza.py voce       progetti/spot01        5. ElevenLabs → voiceover_it.mp3
   localizza.py adatta     progetti/spot01           velocità video/voce (facoltativo, solo su richiesta)
+  localizza.py titolo     progetti/spot01           rileva il titolo grafico dell'originale
+  localizza.py titolo     progetti/spot01 "RIGA 1" ["RIGA 2"]  banner_titolo.png nello stesso stile
   localizza.py grafica    progetti/spot01 NOME "TESTO"   overlay_NOME.png
   localizza.py monta      progetti/spot01        6-7. → montaggio.mp4
   localizza.py musica     progetti/spot01        8. → con_musica.mp4
@@ -26,7 +28,7 @@ import sys
 from pathlib import Path
 
 from pipeline import config as C
-from pipeline import adatta, esporta, ff, grafica, monta, musica, pulisci, traduci, trascrivi, verifica, voce
+from pipeline import adatta, esporta, ff, grafica, monta, musica, pulisci, titolo, traduci, trascrivi, verifica, voce
 from pipeline.config import ErroreConfig, Progetto
 
 STEP = ["pulisci", "trascrivi", "traduci", "voce", "adatta", "monta", "musica", "esporta"]
@@ -88,6 +90,20 @@ def esegui_step(nome: str, p: Progetto, a) -> int:
     return 0
 
 
+def cmd_titolo(p: Progetto, a) -> int:
+    if a.frasi:
+        print(f"✓ {titolo.banner(p, a.frasi)}")
+        return 0
+    stile = titolo.rileva(p)
+    if not stile:
+        print("· nessun titolo grafico nell'originale: il banner userà lo stile predefinito")
+        return 0
+    banda = "banda colorata" if stile["banda"] else "senza banda"
+    print(f"✓ titolo trovato ({banda}, {len(stile['righe'])} righe, a schermo fino a {stile['fine']}s)")
+    print(f"  testo da tradurre: {p.file(titolo.RITAGLIO)}  stile: {p.file(titolo.STILE)}")
+    return 0
+
+
 def cmd_tutto(p: Progetto, a) -> int:
     i0 = STEP.index(a.da) if a.da else 0
     i1 = STEP.index(a.a or "voce") + 1
@@ -128,6 +144,10 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--da", choices=STEP)
     s.add_argument("--a", choices=STEP, help="ultimo step da eseguire (default: voce)")
 
+    s = sub.add_parser("titolo", help="senza frasi: rileva il titolo dell'originale; con frasi: crea il banner")
+    s.add_argument("progetto")
+    s.add_argument("frasi", nargs="*", help="una frase per riga del banner")
+
     s = sub.add_parser("grafica", help="crea overlay_NOME.png da un testo (\\n per andare a capo)")
     s.add_argument("progetto")
     s.add_argument("nome")
@@ -146,6 +166,8 @@ def main(argv: list[str] | None = None) -> int:
         p = Progetto.apri(a.progetto)
         if a.cmd == "stato":
             return cmd_stato(p)
+        if a.cmd == "titolo":
+            return cmd_titolo(p, a)
         if a.cmd == "grafica":
             grafica.crea(p, a.nome, a.testo, a.larghezza, a.dim_font, a.colore,
                          None if a.sfondo == "nessuno" else a.sfondo, a.font)

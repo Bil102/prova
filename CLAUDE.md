@@ -23,6 +23,14 @@ Dopo aver scritto o modificato `script_it.txt`, lancia `python3 localizza.py ver
 Dopo ogni adattamento proponi sempre all'utente 3-5 titoli grafici per l'hook (vedi "Titoli
 grafici" nelle regole) e salvali in `progetti/<nome>/titoli_grafici.md`.
 
+Titolo grafico, dopo `pulisci`: lancia `localizza.py titolo <progetto>`. Se trova un titolo
+nell'originale, leggi `titolo_originale.png`, traducilo in modo sensato e mettilo tra le
+proposte (come frase unica). Scelta la frase, dividila nelle stesse righe dell'originale e
+crea il banner con `localizza.py titolo <progetto> "RIGA 1" "RIGA 2"` → `banner_titolo.png`
+(stessi colori, banda e proporzioni; durata a schermo in `titolo_stile.json` → "fine").
+Senza titolo nell'originale il banner usa lo stile predefinito approvato. Consegna all'utente
+solo il PNG del banner, non il video con il titolo sovrapposto.
+
 ## Struttura
 - `localizza.py` — CLI (un sottocomando per step, `tutto` per eseguirli in sequenza)
 - `pipeline/` — un modulo per step: `pulisci`, `trascrivi`, `traduci`, `verifica`, `voce`,
