@@ -75,6 +75,10 @@ fedeltà è al senso, non alle parole.
 ## Formattazione per la voce
 - Paragrafi brevi, una frase (o una frase breve) per blocco, pensati per ElevenLabs.
 - **Niente timestamp** ((0:00), 1:47…) e niente residui del player ("Play", "Mute", ecc.).
+- **Accento grafico sulle parole che ElevenLabs sbaglia**: termini tecnici o poco comuni con
+  accento non ovvio si scrivono con l'accento sulla sillaba tonica, come per Rivàiv Dram.
+  Già verificati: proteàsi, lipàsi, amilàsi (ElevenLabs le leggeva con l'accento errato).
+  Quando l'utente segnala una pronuncia sbagliata, aggiungi la parola a questo elenco.
 - Se ci sono più speaker, ogni blocco di battute inizia con una riga `[NomeSpeaker]` da sola
   (convenzione letta da `localizza.py voce`). Con un solo narratore non servono intestazioni.
 - Consegna il **testo completo corretto**, salvo quando l'utente chiede solo un paragrafo (e
@@ -100,6 +104,7 @@ fedeltà è al senso, non alle parole.
 | buildup / gunk / sludge | accumulo / sporco / melma |
 | film (di detersivo) | pellicola |
 | biofilm | biofilm |
+| protease / lipase / amylase | proteàsi / lipàsi / amilàsi (con accento, per la voce) |
 | musty smell | odore di muffa |
 | wet dog smell | odore di cane bagnato |
 | pet hair | pelo degli animali |
