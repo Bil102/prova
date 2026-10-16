@@ -91,11 +91,40 @@ fedeltà è al senso, non alle parole.
   metà del testo) mantenendo trama e punti chiave. A volte vengono chiesti anche i **punti
   chiave** del video.
 - **Titoli grafici (SEMPRE, per ogni video):** subito dopo l'adattamento, senza che l'utente li
-  chieda, proponi 3-5 titoli per la grafica dell'hook: in maiuscolo, brevi (indicativamente
-  max 6-7 parole, leggibili in 2 secondi), basati sull'hook dei primi secondi, con una
-  preferita motivata in una riga. Se la frase è troppo specifica (es. "odore di muffa"),
-  generalizzala. Stesse regole del testo: niente brand originali, niente prezzi. Salvali in
-  `titoli_grafici.md` nella cartella del progetto.
+  chieda, proponi 3-5 titoli per la grafica dell'hook, con una preferita motivata in una riga.
+  Salvali in `titoli_grafici.md` nella cartella del progetto. Vedi la sezione "Titoli grafici".
+
+## Titoli grafici
+
+Storico completo (23 video, proposte e scelte): `riferimenti/titoli_grafici_storico.md`.
+
+**Criteri**
+- Maiuscolo, 3-5 proposte con angolazioni diverse, una preferita motivata.
+- Riprendono l'**hook** (i primi secondi), mai il body. L'utente spesso precisa dove finisce
+  l'hook ("dopo il body è il solito"): in quel caso basarsi solo su quella parte.
+- Lunghezza: fino a ~10 parole, impaginabili **su due righe**. Spesso in due parti separate da
+  punto o due punti ("FATTO. SVOLTA" / "CHI PARLA: COSA RIVELA").
+- Le formule che l'utente ha effettivamente scelto:
+  - **frase dell'hook quasi alla lettera**, in prima persona con autorevolezza:
+    "HO GESTITO UN RIFUGIO PER 7 ANNI: QUESTO È IL MIO SEGRETO";
+  - **imperativo diretto**: "SMETTI DI COMPRARLO SU AMAZON", "NON BUTTARE LA LAVATRICE PER UN
+    CATTIVO ODORE".
+- Numeri concreti dell'hook funzionano (3 anni, 25 anni, 80 cani, 7 anni).
+- Generalizza i termini troppo specifici: "odore di muffa" → "cattivo odore".
+- Se l'utente indica un elemento visivo su cui spingere (es. "spingi sull'acqua"), tutte le
+  proposte ruotano intorno a quello. Se chiede "altri titoli", cambia angolazione, non solo parole.
+- Stesse regole del testo: niente brand originali, niente prezzi del prodotto (le cifre di
+  un'esperienza personale vanno bene), nessun nome americano. Ricontrolla la grammatica
+  (in passato: "IL MIO UN CANE").
+- Evita le proposte che descrivono un formato diverso da quello del video, e la "solita frase"
+  generica: l'utente vuole varietà.
+
+**Stile grafico approvato** (per quando si genera l'immagine)
+- Due righe, **senza box né sfondo** (sfondo trasparente): testo bianco con contorno nero,
+  1-2 parole chiave in **giallo** (es. "7 ANNI", "SEGRETO").
+- Bocciati: stile dossier/timbro ("che schifo"), cartoon, rettangoli piatti. Se si usa un box,
+  curare i dettagli (bordi irregolari effetto sticker), non un rettangolo semplice.
+- Font: lo stile dell'originale è condensed (Anton / Bebas Neue); se non disponibili, Poppins Bold.
 
 ## Glossario
 
