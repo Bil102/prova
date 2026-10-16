@@ -156,3 +156,41 @@ def test_traduci_senza_genere(progetto):
     (progetto / "progetto.toml").write_text(t)
     (progetto / "transcript_en.txt").write_text("x")
     assert localizza.main(["traduci", str(progetto)]) == 1
+
+
+def test_pulisci_vmake_sdk(progetto, tmp_path, monkeypatch):
+    import action_api_sdk
+    d = progetto
+    t = (d / "progetto.toml").read_text().replace('metodo = "delogo"', 'metodo = "vmake"')
+    (d / "progetto.toml").write_text(t)
+    monkeypatch.setenv("MT_AK", "ak")
+    monkeypatch.setenv("MT_SK", "sk")
+    risultato = genera(["-f", "lavfi", "-i", "testsrc2=s=360x640:r=30:d=2"], tmp_path / "pulito.mp4")
+    chiamate = []
+
+    class FintoClient:
+        def run_task(self, task, path, on_async_submitted=None):
+            chiamate.append((task, path))
+            on_async_submitted("T123")
+            assert json.loads((d / ".vmake_task.json").read_text())["task_id"] == "T123"
+            return {"skill_status": "completed", "output_urls": ["https://cdn.example/out.mp4?sig=1"]}
+
+    def get(url, **kw):
+        assert url.startswith("https://cdn.example/out.mp4")
+        dati = risultato.read_bytes()
+        return SimpleNamespace(raise_for_status=lambda: None, iter_content=lambda n: [dati])
+
+    monkeypatch.setattr(action_api_sdk, "SkillClient", FintoClient)
+    monkeypatch.setattr("requests.get", get)
+    assert localizza.main(["pulisci", str(d)]) == 0
+    assert chiamate == [("videoscreenclear", str(d / "originale.mp4"))]
+    assert ff.durata(d / "video_clean.mp4") == pytest.approx(2, abs=0.1)
+    assert not (d / ".vmake_task.json").exists()
+
+
+def test_pulisci_vmake_senza_chiavi(progetto, monkeypatch):
+    t = (progetto / "progetto.toml").read_text().replace('metodo = "delogo"', 'metodo = "vmake"')
+    (progetto / "progetto.toml").write_text(t)
+    monkeypatch.delenv("MT_AK", raising=False)
+    monkeypatch.delenv("MT_SK", raising=False)
+    assert localizza.main(["pulisci", str(progetto)]) == 1

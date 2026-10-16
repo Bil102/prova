@@ -37,10 +37,12 @@ Prerequisiti da verificare:
   `backend = "locale"` (`pip install faster-whisper`, gratis, lento senza GPU).
 - **Claude** — `ANTHROPIC_API_KEY` per lo step `traduci`. In alternativa puoi tradurre in sessione con
   Claude Code: le regole sono già caricate tramite `CLAUDE.md`.
-- **Vmake** — non ha documentazione API pubblica. Finché non hai endpoint e chiave dal tuo
-  account, usa `metodo = "manuale"` (carichi tu il video su Vmake e salvi il risultato come
-  `video_clean.mp4`) oppure `sfoca`/`delogo` se i sottotitoli stanno sempre nella stessa fascia.
-  Il punto dove agganciare l'API è `pipeline/pulisci.py::_vmake`.
+- **Vmake** — SDK ufficiale incluso in `vendor/` (installato da `requirements.txt`). Chiavi
+  `MT_AK`/`MT_SK` da vmake.ai/developers; poi `[pulizia] metodo = "vmake"`. Il task predefinito è
+  `videoscreenclear` (rimozione testo dal video); l'elenco dei task disponibili si vede con
+  `action-api-sdk catalog --media-type video`. Ogni esecuzione consuma quota Vmake; se il polling
+  si interrompe, rilanciando `pulisci` si riprende lo stesso lavoro senza ricaricare il video.
+  Senza chiavi: `metodo = "manuale"` (video pulito scaricato dal sito e salvato come `video_clean.mp4`).
 
 ## Flusso tipico
 
