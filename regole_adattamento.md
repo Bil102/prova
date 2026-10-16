@@ -111,6 +111,9 @@ Storico completo (23 video, proposte e scelte): `riferimenti/titoli_grafici_stor
     CATTIVO ODORE".
   - in generale l'utente preferisce i titoli che **parlano direttamente allo spettatore/cliente**
     (il suo problema, la sua lavatrice) rispetto a quelli centrati sul narratore.
+- Se il video originale ha già un titolo grafico, proponi sempre anche la sua **traduzione
+  fedele** tra le opzioni (V25: scelta dall'utente) e rifai la grafica nello stesso stile.
+- Proponi le frasi come **frase unica**, non divise in righe: la divisione per la grafica si fa dopo.
 - Numeri concreti dell'hook funzionano (3 anni, 25 anni, 80 cani, 7 anni).
 - Generalizza i termini troppo specifici: "odore di muffa" → "cattivo odore".
 - Se l'utente indica un elemento visivo su cui spingere (es. "spingi sull'acqua"), tutte le

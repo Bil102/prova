@@ -327,3 +327,10 @@ Dove scrivo "nessuna scelta dichiarata" non hai indicato quale usare.
 5. LA TUA LAVATRICE PUZZA? NON SERVE UN TECNICO
 
 **Preferita mia:** 1. **Scelta tua:** la 2, "perché fa riferimento al cliente".
+
+## V25. "Ho chiesto a mia mamma: casa mia puzza?" (Emma → Giulia)
+**Hook:** la madre esita, poi: "non mi andava di dirtelo… ma è sui loro maglioni".
+**Titolo nell'originale:** MY MUM'S HOUSE NEVER SMELT. MINE DID. / SHE TOLD ME WHY. (banda rossa in alto, riga 1 bianca, riga 2 gialla, 0-6 s)
+**Proposti:** HO CHIESTO A MIA MAMMA: CASA MIA PUZZA? · NON VOLEVA DIRMELO. MA ERA SUI MAGLIONI DEI MIEI FIGLI · CASA TUA PUZZA? NESSUNO AVRÀ IL CORAGGIO DI DIRTELO · I VESTITI DEI TUOI FIGLI SANNO DI CANE? NON È COLPA TUA · IL BUCATO SA DI CANE? IL PROBLEMA NON È IL CANE · traduzione dell'originale
+**Preferita mia:** CASA TUA PUZZA? NESSUNO AVRÀ IL CORAGGIO DI DIRTELO.
+**Scelta tua:** la traduzione fedele del titolo originale: LA CASA DI MIA MAMMA NON HA MAI PUZZATO. LA MIA SÌ. MI HA SPIEGATO PERCHÉ. Grafica rifatta identica all'originale (stessa banda, stessi colori).
