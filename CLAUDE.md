@@ -31,6 +31,11 @@ crea il banner con `localizza.py titolo <progetto> "RIGA 1" "RIGA 2"` → `banne
 Senza titolo nell'originale il banner usa lo stile predefinito approvato. Consegna all'utente
 solo il PNG del banner, non il video con il titolo sovrapposto.
 
+Accelerazione della voce: l'utente vuole **mp3cut.net**, non ElevenLabs né Rubber Band ("voce
+sdoppiata"). Ordine: voce a velocità 1.0 → pause tagliate (step `voce`) → fattore = durata voce /
+durata del video accelerato dall'utente → `node strumenti/mp3cut_velocizza.js in.mp3 FATTORE out.mp3`.
+Il video lo accelera l'utente con il suo programma: non accelerarlo.
+
 ## Struttura
 - `localizza.py` — CLI (un sottocomando per step, `tutto` per eseguirli in sequenza)
 - `pipeline/` — un modulo per step: `pulisci`, `trascrivi`, `traduci`, `verifica`, `voce`,
