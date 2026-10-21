@@ -90,11 +90,17 @@ def _vmake(p: Progetto, src, out, task: str) -> None:
         if stato.exists():
             tid = json.loads(stato.read_text())["task_id"]
             print(f"  → riprendo il lavoro Vmake già inviato ({tid})")
-            res = client.poll_task_status(tid)
+            res = _poll_con_ritenti(client, tid)
         else:
             print(f"  → upload su Vmake e avvio '{task}' (consuma quota)")
             salva = lambda tid: stato.write_text(json.dumps({"task_id": tid, "task": task}))
-            res = client.run_task(task, str(src), on_async_submitted=salva)
+            try:
+                res = client.run_task(task, str(src), on_async_submitted=salva)
+            except Exception as e:  # timeout durante il polling: il lavoro è già inviato, si riprende
+                if not stato.exists() or "timeout" not in type(e).__name__.lower():
+                    raise
+                print(f"  ! {type(e).__name__} durante l'attesa, riprendo il polling")
+                res = _poll_con_ritenti(client, json.loads(stato.read_text())["task_id"])
     except ErroreConfig:
         raise
     except Exception as e:  # l'SDK solleva eccezioni proprie per quota, config e rete
@@ -112,6 +118,20 @@ def _vmake(p: Progetto, src, out, task: str) -> None:
         for blocco in r.iter_content(1 << 20):
             fh.write(blocco)
     stato.unlink(missing_ok=True)
+
+
+def _poll_con_ritenti(client, tid: str, tentativi: int = 10):
+    """L'SDK aspetta il server solo 3 s: sui timeout di rete si riprova invece di fermarsi."""
+    import time
+
+    for i in range(tentativi):
+        try:
+            return client.poll_task_status(tid)
+        except Exception as e:
+            if "timeout" not in type(e).__name__.lower() or i == tentativi - 1:
+                raise
+            print(f"  ! {type(e).__name__}, nuovo tentativo ({i + 2}/{tentativi})")
+            time.sleep(5)
 
 
 def _url_video(res) -> str | None:
