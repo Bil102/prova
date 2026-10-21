@@ -30,6 +30,7 @@ brand_vietati = []     # brand extra da segnalare, oltre a quelli standard
 
 [voce]
 modello = "eleven_multilingual_v2"
+lingua = "it"          # forza la pronuncia italiana (senza: "mama" invece di "mamma", accento)
 stability = 0.5
 similarity_boost = 0.75
 style = 0.0
