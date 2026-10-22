@@ -17,7 +17,10 @@ const [inp, target, out] = process.argv.slice(2);
   const run = await p.locator('.el-slider__runway').first().boundingBox();
   const y = run.y + run.height / 2;
   let x = run.x + run.width * (t - 0.5) / 2.5;
+  // un clic che cade sopra il cursore viene ignorato: prima lo si sposta lontano, poi si clicca
+  const lontano = run.x + run.width * (t < 1.75 ? 0.95 : 0.05);
   for (let i = 0; i < 30; i++) {  // clic sulla barra, poi ritocco di mezzo pixel
+    await p.mouse.click(lontano, y); await p.waitForTimeout(200);
     await p.mouse.click(x, y); await p.waitForTimeout(300);
     const v = await val();
     if (Math.abs(v - t) < 0.005) break;
