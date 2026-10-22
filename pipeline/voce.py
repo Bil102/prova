@@ -143,16 +143,24 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
     if max_pausa > 0:
         grezza = cartella / "voiceover_grezza.mp3"
         concatena(parti, grezza, pause, verbose)
-        n, tolti = compatta_pause(grezza, finale, float(cfg.get("soglia_silenzio", -40)), max_pausa, verbose)
-        print(f"  pause accorciate a max {max_pausa}s: {n} (−{tolti:.1f}s)")
+        fine_frase = float(cfg.get("pausa_fine_frase", 0.3))
+        n, tolti = compatta_pause(grezza, finale, float(cfg.get("soglia_silenzio", -40)), max_pausa, verbose,
+                                  fine_frase, float(cfg.get("soglia_fine_frase", 0.3)))
+        print(f"  pause accorciate: {n} (−{tolti:.1f}s; max {max_pausa}s dentro la frase, "
+              f"{fine_frase}s a fine frase)")
     else:
         concatena(parti, finale, pause, verbose)
     print(f"✓ {finale} ({ff.durata(finale):.1f}s, {len(parti)} blocchi)")
 
 
 def compatta_pause(src: Path, out: Path, soglia_db: float = -40, max_pausa: float = 0.12,
-                   verbose: bool = False) -> tuple[int, float]:
+                   verbose: bool = False, pausa_fine_frase: float = 0.0,
+                   soglia_fine_frase: float = 0.3) -> tuple[int, float]:
     """Accorcia a `max_pausa` secondi ogni pausa più lunga (come il taglio a mano delle pause).
+
+    Le pause che nell'audio originale durano almeno `soglia_fine_frase` sono fine frase (ElevenLabs
+    si ferma di più sul punto che sulla virgola): queste scendono solo a `pausa_fine_frase`, così
+    tra una frase e l'altra resta il respiro necessario per capire.
 
     Restituisce (pause accorciate, secondi tolti)."""
     import subprocess
@@ -164,10 +172,11 @@ def compatta_pause(src: Path, out: Path, soglia_db: float = -40, max_pausa: floa
     fini = [float(x) for x in re.findall(r"silence_end: ([\d.]+)", r.stderr)]
     tagli = []
     for a, b in zip(inizi, fini):
-        if b - a > max_pausa:
+        resta = max(pausa_fine_frase, max_pausa) if b - a >= soglia_fine_frase else max_pausa
+        if b - a > resta:
             # due terzi della pausa restano dopo la fine della frase (la coda delle parole
             # scende piano e tagliarla tronca la frase), un terzo prima della successiva
-            tagli.append((a + max_pausa * 2 / 3, b - max_pausa / 3))
+            tagli.append((a + resta * 2 / 3, b - resta / 3))
     if not tagli:
         ff.esegui(["-i", src, "-c:a", "libmp3lame", "-b:a", "192k", out], verbose)
         return 0, 0.0
