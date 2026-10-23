@@ -36,6 +36,19 @@ sdoppiata"). Ordine: voce a velocità 1.0 → pause tagliate (step `voce`) → f
 durata del video accelerato dall'utente → `node strumenti/mp3cut_velocizza.js in.mp3 FATTORE out.mp3`.
 Il video lo accelera l'utente con il suo programma: non accelerarlo.
 
+## Editing grafico del video pulito — SEMPRE valido
+Quando l'utente fornisce il video pulito (senza sottotitoli), oltre a quanto chiede esplicitamente:
+- **Prezzi in sterline (o dollari) → euro**, stessa cifra, su cartelli e cartellini visibili
+  (scene di supermercato), senza bisogno che venga richiesto.
+- **Inquadrature di Londra** (bus rossi a due piani, Big Ben, taxi neri, ecc.) → eliminarle con un
+  taglio netto sui cambi di scena (il video deve restare fluido). Controllo: ogni volta che la
+  trascrizione nomina Londra/London, guardare le inquadrature intorno a quel punto; in più scorrere
+  i fotogrammi di tutte le scene.
+- Scatola del concorrente in mano a persone, se non adattabile bene → sostituire l'inquadratura con
+  una foto del nostro prodotto (`risorse/prodotto/`).
+- CTA finale del concorrente → sostituirla con una delle nostre CTA (`risorse/cta/`).
+- Il titolo grafico dell'hook va ricreato nello stesso stile dell'originale (banda, colori, font).
+
 ## Struttura
 - `localizza.py` — CLI (un sottocomando per step, `tutto` per eseguirli in sequenza)
 - `pipeline/` — un modulo per step: `pulisci`, `trascrivi`, `traduci`, `verifica`, `voce`,
