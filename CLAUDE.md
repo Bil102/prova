@@ -48,6 +48,13 @@ Quando l'utente fornisce il video pulito (senza sottotitoli), oltre a quanto chi
   una foto del nostro prodotto (`risorse/prodotto/`).
 - CTA finale del concorrente → sostituirla con una delle nostre CTA (`risorse/cta/`).
 - Il titolo grafico dell'hook va ricreato nello stesso stile dell'originale (banda, colori, font).
+- Packaging **Uproot Clean** accettato (quasi uguale a Revive Drum): i B-roll Uproot si possono usare
+  come sostituti; nei video con packaging Uproot le clip originali restano, salvo scatola troppo in
+  primo piano.
+- Foto prodotto, B-roll e CTA stanno nella cartella Drive dell'utente: si scaricano col link
+  (`gdown --folder`) quando servono; nel repository solo l'elenco (`risorse/README.md`), non i video.
+- Video pulito oltre i 5 minuti: arriva in due parti (limite Vmake Smart Pro); unirle allineandole
+  fotogramma per fotogramma alla reference (niente fotogrammi doppi o mancanti).
 
 ## Struttura
 - `localizza.py` — CLI (un sottocomando per step, `tutto` per eseguirli in sequenza)
