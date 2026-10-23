@@ -1,5 +1,8 @@
 # Risorse per l'editing (foto prodotto, B-roll, CTA)
 
+Confezione Revive Drum: vanno bene entrambe le versioni; **preferita la bianca con fascia azzurra**
+("REVIVE WASHING MACHINE CLEANER PRO"), poi quella azzurra "PurGUARD". Uproot Clean (azzurra) accettata.
+
 I file stanno nella cartella Drive dell'utente, non nel repository:
 https://drive.google.com/drive/folders/1MA1M_OAn4LE_7dAdCEU1dRxw6vVDQoGa ("materiale revive drum")
 Scaricarla con `gdown --folder <link>` in una cartella nuova quando serve.
