@@ -36,6 +36,10 @@ sdoppiata"). Ordine: voce a velocità 1.0 → pause tagliate (step `voce`) → f
 durata del video accelerato dall'utente → `node strumenti/mp3cut_velocizza.js in.mp3 FATTORE out.mp3`.
 Il video lo accelera l'utente con il suo programma: non accelerarlo.
 
+## Voci ElevenLabs fisse
+- **Tecnico / idraulico** (il personaggio che ripara lavatrici e spiega l'accumulo): `AoQcyQ0uBn3qwl32V08U`.
+- Narratrice femminile abituale (figlia/nipote che racconta): `201hPjDVu4Q5DUV7tMQJ`.
+
 ## Editing grafico del video pulito — SEMPRE valido
 Quando l'utente fornisce il video pulito (senza sottotitoli), oltre a quanto chiede esplicitamente:
 - **Prezzi in sterline (o dollari) → euro**, stessa cifra, su cartelli e cartellini visibili
