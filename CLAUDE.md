@@ -4,6 +4,9 @@ Adattamento di video pubblicitari americani al mercato italiano. Pipeline a step
 eseguibile da riga di comando con `python3 localizza.py <step> progetti/<nome>`; tra uno step
 e l'altro l'utente può intervenire a mano sui file del progetto.
 
+**Vmake: non lanciare mai `pulisci` in automatico**: il video pulito lo prepara l'utente dal sito,
+salvo richiesta esplicita.
+
 Divisione del lavoro: Claude gestisce gli step 2–5 (pulizia sottotitoli, trascrizione,
 adattamento, voce); montaggio, B-roll, musica ed export li fa l'utente in CapCut. Non lanciare
 `monta`/`musica`/`esporta` salvo richiesta esplicita.
