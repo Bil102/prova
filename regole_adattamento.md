@@ -78,6 +78,7 @@ fedeltà è al senso, non alle parole.
 - **Accento grafico sulle parole che ElevenLabs sbaglia**: termini tecnici o poco comuni con
   accento non ovvio si scrivono con l'accento sulla sillaba tonica, come per Rivàiv Dram.
   Già verificati: proteàsi, lipàsi, amilàsi (ElevenLabs le leggeva con l'accento errato).
+  Segnalate dall'utente: "ciclo" (voce idraulico AoQcy…, eleven_v4) → scrivere "cìclo".
   Quando l'utente segnala una pronuncia sbagliata, aggiungi la parola a questo elenco.
 - Se ci sono più speaker, ogni blocco di battute inizia con una riga `[NomeSpeaker]` da sola
   (convenzione letta da `localizza.py voce`). Con un solo narratore non servono intestazioni.
