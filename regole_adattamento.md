@@ -19,6 +19,8 @@ fedeltà è al senso, non alle parole.
   spariscono. "Uproot Clean Pro Machine" → "Rivàiv Dram" (non "Rivàiv Dram Pro"). Poi si adatta
   la frase perché suoni naturale (es. "le pastiglie Rivàiv Dram").
 - **Niente varianti** come "Pro" o "Ultra" (aggiunte per errore più volte), salvo richiesta.
+- **Niente riferimenti ad altri prodotti o servizi dell'azienda** ("made by the company behind those
+  famous pet hair removal tools" ecc.): la frase si toglie, si lascia solo "una piccola azienda italiana".
 - Se serve un segnaposto provvisorio, dillo; non usare "X" senza segnalarlo.
 
 ## Brand concorrenti
