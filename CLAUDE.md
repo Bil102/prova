@@ -42,6 +42,8 @@ Il video lo accelera l'utente con il suo programma: non accelerarlo.
 ## Voci ElevenLabs fisse
 - **Tecnico / idraulico** (il personaggio che ripara lavatrici e spiega l'accumulo): `AoQcyQ0uBn3qwl32V08U`.
 - Narratrice femminile abituale (figlia/nipote che racconta): `201hPjDVu4Q5DUV7tMQJ`.
+- Narratore uomo usato di recente (tecnici W4/W5): `GRjgv3Z8Gg3RY82Qo6FW` (enzimi: meglio non nominarli uno per uno).
+- **Voci da NON usare più** (bocciate dall'utente): `1rizDTVuzexhIfbT7aqj`, `litDcG1avVppv4R90BLu`.
 
 ## Editing grafico del video pulito — SEMPRE valido
 Quando l'utente fornisce il video pulito (senza sottotitoli), oltre a quanto chiede esplicitamente:
