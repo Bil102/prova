@@ -83,6 +83,8 @@ fedeltà è al senso, non alle parole.
   accento non ovvio si scrivono con l'accento sulla sillaba tonica, come per Rivàiv Dram.
   Già verificati: proteàsi, lipàsi, amilàsi (ElevenLabs le leggeva con l'accento errato).
   Segnalate dall'utente: "ciclo" (voce idraulico AoQcy…, eleven_v4) → scrivere "cìclo".
+  Eccezione per la voce narratore uomo GRjgv3Z8Gg3RY82Qo6FW: amilasi, proteasi, lipasi **senza** accento
+  (con l'accento le pronuncia male; scelto dall'utente dopo prova a confronto).
   Quando l'utente segnala una pronuncia sbagliata, aggiungi la parola a questo elenco.
 - Se ci sono più speaker, ogni blocco di battute inizia con una riga `[NomeSpeaker]` da sola
   (convenzione letta da `localizza.py voce`). Con un solo narratore non servono intestazioni.
