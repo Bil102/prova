@@ -73,6 +73,8 @@ fedeltà è al senso, non alle parole.
   italiano capisce ("testato e sicuro", "senza sostanze aggressive", "enzimi di livello
   avanzato"). Niente claim impropri come "dermatologicamente testato".
 - **Rilettura finale:** prima di consegnare, cerca i calchi dall'inglese e correggili.
+- Parole ricercate da evitare (bocciate dall'utente): "attecchire" → "formarsi"; "via" nei titoli
+  grafici ("VIA L'ODORE…").
 
 ## Formattazione per la voce
 - Paragrafi brevi, una frase (o una frase breve) per blocco, pensati per ElevenLabs.
