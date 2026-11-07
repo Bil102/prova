@@ -23,6 +23,10 @@ l'utente debba ripeterle. In particolare, prima di procedere:
 
 Dopo aver scritto o modificato `script_it.txt`, lancia `python3 localizza.py verifica <progetto>`.
 
+**Banner/immagine del titolo grafico: solo su richiesta esplicita dell'utente** (le proposte di frase
+invece sempre). Stile preferito recente: box bianco arrotondato con testo nero e parola chiave rossa,
+sotto box rosso con testo bianco e una parola evidenziata in giallo (script `banner_box.py`).
+
 Dopo ogni adattamento proponi sempre all'utente 3-5 titoli grafici per l'hook (vedi "Titoli
 grafici" nelle regole) e salvali in `progetti/<nome>/titoli_grafici.md`.
 
