@@ -26,6 +26,9 @@ Dopo aver scritto o modificato `script_it.txt`, lancia `python3 localizza.py ver
 **Banner/immagine del titolo grafico: solo su richiesta esplicita dell'utente** (le proposte di frase
 invece sempre). Stile preferito recente: box bianco arrotondato con testo nero e parola chiave rossa,
 sotto box rosso con testo bianco e una parola evidenziata in giallo (script `banner_box.py`).
+Quando li chiede, **libertà creativa**: variare layout, colori, evidenziazioni e box tra un video e
+l'altro prendendo spunto dagli esempi in `riferimenti/banner_esempi/` (box impilati, fasce, parole
+chiave colorate o evidenziate, citazioni tra virgolette), sempre leggibili e coerenti con l'hook.
 
 Dopo ogni adattamento proponi sempre all'utente 3-5 titoli grafici per l'hook (vedi "Titoli
 grafici" nelle regole) e salvali in `progetti/<nome>/titoli_grafici.md`.
