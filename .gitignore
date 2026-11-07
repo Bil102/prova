@@ -3,3 +3,4 @@ progetti/
 __pycache__/
 .pytest_cache/
 *.pyc
+consegne/
