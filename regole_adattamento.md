@@ -21,6 +21,9 @@ fedeltà è al senso, non alle parole.
 - **Niente varianti** come "Pro" o "Ultra" (aggiunte per errore più volte), salvo richiesta.
 - **Niente riferimenti ad altri prodotti o servizi dell'azienda** ("made by the company behind those
   famous pet hair removal tools" ecc.): la frase si toglie, si lascia solo "una piccola azienda italiana".
+  Vale anche quando un intero video presenta un altro prodotto (kit con fogli detersivo/asciugatrice,
+  "Laundry Cycle Pro", ecc.): **non chiedere**, riscrivi il video intorno alle sole pastiglie Rivàiv Dram
+  mantenendo struttura, tono e personaggio.
 - Se serve un segnaposto provvisorio, dillo; non usare "X" senza segnalarlo.
 
 ## Brand concorrenti
