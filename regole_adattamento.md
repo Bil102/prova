@@ -4,11 +4,24 @@ Fonte unica delle regole: usate sia da Claude Code in sessione (via CLAUDE.md) s
 script `localizza.py traduci` (vengono passate come system prompt all'API).
 Si applicano sempre, senza bisogno di ripeterle.
 
-Video pubblicitari di detergente per lavatrici (case con animali). Queste regole si sono
+Video pubblicitari di detergente per lavatrici (gli originali sono pensati per case con animali; gli adattamenti vanno resi **broad**, vedi sotto). Queste regole si sono
 raffinate correzione dopo correzione e continueranno a evolvere: sono una guida, non un elenco
 rigido. Nel dubbio su un nome, un genere, chi parla o una scena poco chiara, **chiedi prima di
 tradurre** invece di indovinare. Se una frase non suona italiano naturale, riformulala: la
 fedeltà è al senso, non alle parole.
+
+## Pubblico broad (non solo chi ha animali) — SEMPRE valido
+Il copy deve parlare a **tutti**, anche a chi non ha animali; chi li ha si intensifica, non si esclude.
+- **Hook:** si toglie la condizione sugli animali. "Se hai animali e il tuo bucato…" → "Se il tuo bucato…".
+- **Causa dello sporco:** non solo pelo e sebo animale, ma pelo, sebo in generale, residui di detersivo,
+  sporco, umidità ("peli, sebo, residui di detersivo e umidità").
+- **Se il body cita gli animali:** si tiene come rafforzativo: "a maggior ragione se hai animali",
+  "soprattutto se in casa hai cani o gatti".
+- **Storia incentrata sugli animali** (rifugio, canile, POV del cane): la storia resta, ma si rende broad
+  con una frase, sfruttandola fin dai primi secondi: "Se ho risolto io con gli animali, figuriamoci voi",
+  "Se funziona in una casa con 5 cani, nella tua funziona di sicuro".
+- Vale anche per i **titoli grafici**: niente titoli rivolti solo a chi ha animali (es. "IL BUCATO SA DI
+  CANE BAGNATO?" → "IL BUCATO PUZZA ANCHE APPENA LAVATO?"), salvo storie dove l'animale è il gancio.
 
 ## Nome prodotto
 - Il prodotto si scrive sempre **Rivàiv Dram** (con l'accento), perché la voce italiana di
@@ -243,7 +256,7 @@ Un ciclo, e la mia lavatrice tornava a profumare di fresco.
 
 Adesso le uso ogni mese e da allora non ho più avuto problemi.
 
-Se hai animali domestici, è un prodotto indispensabile.
+È un prodotto indispensabile, a maggior ragione se hai animali domestici.
 
 Non aspettare che si rompa.
 ```
