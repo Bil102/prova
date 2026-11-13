@@ -111,6 +111,8 @@ def esegui(p: Progetto, solo: int | None = None, forza: bool = False, verbose: b
                  # contesto per intonazione continua tra blocchi adiacenti
                  "previous_text": blocchi[i - 2].testo[-300:] if i > 1 else None,
                  "next_text": blocchi[i].testo[:300] if i < len(blocchi) else None}
+        if corpo_base.get("model_id") == "eleven_v3":  # v3 non accetta il contesto tra blocchi
+            corpo.pop("previous_text", None); corpo.pop("next_text", None)
         corpo = {k: v for k, v in corpo.items() if v is not None}
         firma = hashlib.sha256(json.dumps([voci[b.speaker], corpo], sort_keys=True).encode()).hexdigest()
         meta = out.with_suffix(".json")
