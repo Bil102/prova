@@ -47,11 +47,11 @@ Il copy deve parlare a **tutti**, anche a chi non ha animali; chi li ha si inten
 - Se il generico ricorre 3 volte di fila, varia la formula invece di ripeterla identica.
 
 ## Prezzi e offerte
-- **Offerta standard (da novembre 2026, sito Revive Drum):** qualunque offerta dell'originale si sostituisce
-  con quella del sito: **3+1 o 4+2 con regali inclusi, e 60% di sconto fino a mezzanotte, a meno che non
-  finiscano prima le scorte**. Es.: "Sul sito prendi 3 confezioni e la quarta è in omaggio, oppure 4 più 2
-  gratis, con i regali inclusi. E fino a mezzanotte c'è il 60% di sconto, a meno che le scorte non finiscano
-  prima." Questa regola prevale sulle indicazioni qui sotto (offerte "generiche", niente percentuali).
+- **Offerta standard (aggiornata 20/11/2026, sito Revive Drum):** **1+1 gratis o 2+2 gratis, con scadenza
+  a mezzanotte**. Si usa **solo se nella reference c'è un'offerta** (la sostituisce); se la reference non ne
+  ha, non si aggiunge. Es.: "Sul sito ne prendi una e la seconda è gratis, oppure due più due gratis. Ma
+  l'offerta scade a mezzanotte." Prevale sulle indicazioni qui sotto (offerte "generiche"). Superata:
+  3+1/4+2 con 60% di sconto.
 - **Via ogni cifra di prezzo** del prodotto ($9.99 a box, £119, "40% off", ecc.).
 - Eccezione: le cifre dentro un'esperienza personale restano, convertite in euro
   (es. "aveva speso 120€ in prodotti inutili", "prima di spendere 1.200 euro per una lavatrice nuova").
