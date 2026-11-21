@@ -5,6 +5,7 @@ from faster_whisper import WhisperModel
 P=sys.argv[1]; m=WhisperModel("large-v3",compute_type="int8")
 def n(x):
     x=x.lower().replace("rivàiv dram","revivedrum").replace("revive drum","revivedrum")
+    for a,b in (("la milasi","l amilasi"),("l'amilàsi","l amilasi"),("l alipasi","la lipasi"),("l'alipasi","la lipasi"),("in credula","incredula")): x=x.replace(a,b)
     for a,b in (("à","a"),("ì","i"),("è","e"),("é","e"),("ò","o"),("ù","u")): x=x.replace(a,b)
     return re.sub(r"[^a-z ]"," ",x).split()
 def bad(f):
