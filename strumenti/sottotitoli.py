@@ -5,7 +5,7 @@ import sys, json, re, subprocess, os, tempfile
 from PIL import Image, ImageDraw, ImageFont
 
 FONT = "/tmp/claude-0/-home-user-prova/12bba21e-1c99-5858-a6f5-edb34532672e/scratchpad/fonts/package/files/montserrat-latin-600-normal.woff"
-MAXC = 34          # caratteri massimi per sottotitolo (su due righe)
+MAXC = 40          # caratteri massimi per sottotitolo (su due righe)
 NOMI = {"Revive", "Luca", "Rosa", "Marco", "Lisa", "Giorgio", "Martina", "Daniele"}
 CORREZIONI = [(r"\bri[vb][aà]iv\s*dr[ua]m\b", "Revive Drum"), (r"\brevive\s*drum\b", "Revive Drum"), (r"\brevivedrum\b", "Revive Drum")]
 
@@ -41,7 +41,7 @@ def blocchi(parole):
 
 
 def png(testo, W, path):
-    fn = ImageFont.truetype(FONT, int(W * 0.041)); maxw = W * 0.72
+    fn = ImageFont.truetype(FONT, int(W * 0.05)); maxw = W * 0.70
     righe, cur = [], ""
     for p in testo.split():
         t = (cur + " " + p).strip()
@@ -63,6 +63,7 @@ def main():
     off = float(a[a.index("--offset") + 1]) if "--offset" in a else 0.0
     pj = next((x for x in a[2:] if x.endswith(".json")), None)
     parole = [tuple(x) for x in json.load(open(pj))] if pj else parole_da_video(vin)
+    if not pj: json.dump([list(map(lambda v: v if isinstance(v, str) else float(v), x)) for x in parole], open(vout + ".parole.json", "w"), ensure_ascii=False)
     parole = [(s + off, e + off, w) for s, e, w in parole]
     W, H = map(int, subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v", "-show_entries", "stream=width,height", "-of", "csv=p=0", vin], capture_output=True, text=True).stdout.split(",")[:2])
     tmp = tempfile.mkdtemp(); ins = ["-i", vin]; fc = []; prev = "0:v"
