@@ -44,18 +44,45 @@ def main():
     norm = lambda s: re.sub(r"[^a-z0-9 ]", "", s.lower())
     pw = [norm(w[2]) for w in parole]; tempi = []; da = 0
     for a in ancore:
+        if a == "SALTA": tempi.append(None); continue
         if isinstance(a, (int, float)): tempi.append(float(a)); continue
         q = norm(a).split()
         for k in range(da, len(pw)):
             if pw[k:k + len(q)] == q: tempi.append(parole[k][0]); da = k + 1; break
         else: raise SystemExit(f"ancora non trovata: {a}")
+    # inizi di frase inglesi: dopo punteggiatura o dopo una pausa (Whisper spesso non mette i punti)
+    frasi_en = [parole[0][0]] + [parole[k + 1][0] for k in range(len(parole) - 1) if re.search(r"[.?!]$", parole[k][2]) or parole[k + 1][0] - parole[k][1] > 0.45]
+    from faster_whisper import WhisperModel
+    wm = WhisperModel("large-v3", compute_type="int8")
     blocchi = sorted(glob.glob(P + "/voce/[0-9][0-9]_*.mp3"))
     assert len(blocchi) == len(tempi), (len(blocchi), len(tempi))
     traccia = np.zeros(int((durata + 5) * SR), np.float32); fine_prec = 0.0
-    for i, f in enumerate(blocchi):
+    vivi = [i for i in range(len(blocchi)) if tempi[i] is not None]
+    for n_i, i in enumerate(vivi):
+        f = blocchi[i]
         x = taglia(leggi(f)); d = len(x) / SR
+        prossimo = tempi[vivi[n_i + 1]] if n_i + 1 < len(vivi) else durata
+        spazio0 = prossimo - max(tempi[i], fine_prec + 0.1) - 0.15
+        if d > spazio0 > 0.5:  # la battuta italiana non ci sta: la accelero un po' (max 1.25)
+            x = atempo(x, min(d / spazio0, 1.25)); d = len(x) / SR
+        # frasi italiane del blocco (da Whisper) e frasi inglesi nello spazio della battuta
+        tmpf = "/tmp/claude-0/-home-user-prova/12bba21e-1c99-5858-a6f5-edb34532672e/scratchpad/_blk.wav"
+        subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-", tmpf], input=x.tobytes())
+        ws = [w for sg in wm.transcribe(tmpf, language="it", word_timestamps=True)[0] for w in sg.words]
+        cuts = [0.0] + [ (ws[k].end + ws[k + 1].start) / 2 for k in range(len(ws) - 1) if re.search(r"[.?!]$", ws[k].word.strip())]
+        en = [t for t in frasi_en if tempi[i] - 0.05 <= t < prossimo - 0.05] or [tempi[i]]
+        if len(cuts) > 1:
+            fr = [x[int(cuts[k] * SR):int((cuts[k + 1] if k + 1 < len(cuts) else d) * SR)] for k in range(len(cuts))]
+            fine_loc = fine_prec
+            for k, seg in enumerate(fr):
+                tk = en[min(len(en) - 1, round(k * len(en) / len(fr)))] if len(en) > 1 else None
+                st = max(tk if tk is not None else fine_loc + 0.08, fine_loc + 0.08, tempi[i] if k == 0 else 0)
+                a_ = int(st * SR); traccia[a_:a_ + len(seg)] += seg[:len(traccia) - a_]; fine_loc = st + len(seg) / SR
+            fine_prec = fine_loc
+            print(f"{i+1:02d} ancora {tempi[i]:6.1f}  frasi it {len(fr)} en {len(en)}  fine {fine_prec:6.1f}")
+            continue
         t0 = max(tempi[i], fine_prec + 0.12)
-        spazio = (tempi[i + 1] if i + 1 < len(tempi) else durata) - t0 - 0.12
+        spazio = prossimo - t0 - 0.12
         if d > spazio and spazio > 0.5:
             f2 = min(d / spazio, 1.25); x = atempo(x, f2); d = len(x) / SR
             segs = [(0.0, x)]; s = 1.0
