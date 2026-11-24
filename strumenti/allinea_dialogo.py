@@ -60,7 +60,7 @@ def main():
             f2 = min(d / spazio, 1.25); x = atempo(x, f2); d = len(x) / SR
             segs = [(0.0, x)]; s = 1.0
         else:
-            segs = pezzi(x); s = min(spazio * 0.95 / d, 1.8) if d > 0 and len(segs) > 1 else 1.0
+            segs = [(0.0, x)]; s = 1.0  # ritmo naturale: niente pause allungate dentro la battuta
         for off, seg in segs:
             st = int((t0 + off * s) * SR); traccia[st:st + len(seg)] += seg[:len(traccia) - st]
             fine_prec = max(fine_prec, t0 + off * s + len(seg) / SR)
