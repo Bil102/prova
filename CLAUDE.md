@@ -4,7 +4,7 @@ Adattamento di video pubblicitari americani al mercato italiano. Pipeline a step
 eseguibile da riga di comando con `python3 localizza.py <step> progetti/<nome>`; tra uno step
 e l'altro l'utente può intervenire a mano sui file del progetto.
 
-**Vmake: non lanciare mai `pulisci` in automatico**: il video pulito lo prepara l'utente dal sito,
+**Pulizia sottotitoli: non lanciare mai `pulisci` in automatico**: il video pulito lo prepara l'utente (da fine novembre 2026 con WaveSpeed, prima Vmake; forse in futuro collegato via API),
 salvo richiesta esplicita.
 
 Divisione del lavoro: Claude gestisce gli step 2–5 (pulizia sottotitoli, trascrizione,
@@ -69,7 +69,7 @@ Quando l'utente fornisce il video pulito (senza sottotitoli), oltre a quanto chi
   primo piano.
 - Foto prodotto, B-roll e CTA stanno nella cartella Drive dell'utente: si scaricano col link
   (`gdown --folder`) quando servono; nel repository solo l'elenco (`risorse/README.md`), non i video.
-- Video pulito oltre i 5 minuti: arriva in due parti (limite Vmake Smart Pro); unirle allineandole
+- Video pulito oltre i 5 minuti: arriva in due parti (limite di Vmake Smart Pro, se usato); unirle allineandole
   fotogramma per fotogramma alla reference (niente fotogrammi doppi o mancanti).
 
 ## Struttura
