@@ -4,7 +4,7 @@ Adattamento di video pubblicitari americani al mercato italiano. Pipeline a step
 eseguibile da riga di comando con `python3 localizza.py <step> progetti/<nome>`; tra uno step
 e l'altro l'utente può intervenire a mano sui file del progetto.
 
-**Pulizia sottotitoli: non lanciare mai `pulisci` in automatico**: il video pulito lo prepara l'utente (da fine novembre 2026 con WaveSpeed, prima Vmake; forse in futuro collegato via API),
+**Pulizia sottotitoli: solo quando l'utente lo chiede**, con `python3 strumenti/pulisci_wavespeed.py in.mp4 pulito.mp4` (WaveSpeed video-watermark-remover, ~0,01 $/s, chiave iniettata dal proxy su api.wavespeed.ai; max 10 min a video). Il modello toglie anche altre scritte nell'inquadratura (etichette, adesivi): segnalarlo. Prima l'utente puliva da sé con Vmake/WaveSpeed;
 salvo richiesta esplicita.
 
 Divisione del lavoro: Claude gestisce gli step 2–5 (pulizia sottotitoli, trascrizione,
