@@ -1,10 +1,10 @@
 """Sottotitoli "stile TikTok" (riquadro bianco arrotondato, testo nero minuscolo) impressi nel video.
 I tempi vengono dalle parole di Whisper sulla voce del video (o su un file di parole già pronto).
 uso: python3 strumenti/sottotitoli.py video_in.mp4 video_out.mp4 [parole.json] [--y 0.68] [--offset s]"""
-import sys, json, re, subprocess, os, tempfile
+import sys, os, json, re, subprocess, os, tempfile
 from PIL import Image, ImageDraw, ImageFont
 
-FONT = "/tmp/claude-0/-home-user-prova/12bba21e-1c99-5858-a6f5-edb34532672e/scratchpad/fonts/package/files/montserrat-latin-600-normal.woff"
+FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "risorse", "font", "montserrat-latin-600-normal.woff")
 MAXC = 40          # caratteri massimi per sottotitolo (su due righe)
 NOMI = {"Revive", "Luca", "Rosa", "Marco", "Lisa", "Giorgio", "Martina", "Daniele"}
 CORREZIONI = [(r"\bri[vb][aà]iv\s*dr[ua]m\b", "Revive Drum"), (r"\brevive\s*drum\b", "Revive Drum"), (r"\brevivedrum\b", "Revive Drum")]

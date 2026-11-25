@@ -3,11 +3,11 @@ Le modifiche si disegnano su un fotogramma di riferimento (quadrilateri riempiti
 testo nuovo), poi per ogni fotogramma si stima l'omografia rif->fotogramma (SIFT + RANSAC) e la toppa
 viene deformata e incollata.
 uso: python3 strumenti/sostituisci_testo.py spec.json   (vedi chiavi in main)"""
-import json, sys, subprocess
+import json, os, sys, subprocess
 import cv2, numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
-FONT = "/tmp/claude-0/-home-user-prova/12bba21e-1c99-5858-a6f5-edb34532672e/scratchpad/fonts/package/files/montserrat-latin-{}-normal.woff"
+FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "risorse", "font", "montserrat-latin-{}-normal.woff")
 
 
 def colore(img, quad, c):
