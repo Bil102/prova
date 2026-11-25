@@ -10,3 +10,6 @@ Nella cartella dei video (es. Desktop\Sottotitoli video) apri il terminale e lan
 
 Stile: riquadro bianco arrotondato, testo nero minuscolo (Montserrat, incluso in `risorse/font/`),
 1-2 righe, al 68% dell'altezza; tempi presi da Whisper sull'audio del video.
+
+Dopo il primo avvio, apri `claude` dentro la cartella `prova` clonata (o copia `.claude/commands/sottotitoli.md` in `<cartella video>/.claude/commands/`) e usa:
+`/sottotitoli R03.mp4`
