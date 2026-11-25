@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "risorse", "font", "montserrat-latin-600-normal.woff")
 MAXC = 40          # caratteri massimi per sottotitolo (su due righe)
 NOMI = {"Revive", "Luca", "Rosa", "Marco", "Lisa", "Giorgio", "Martina", "Daniele"}
-CORREZIONI = [(r"\bri[vb][aà]iv\s*dr[ua]m\b", "Revive Drum"), (r"\brevive\s*drum\b", "Revive Drum"), (r"\brevivedrum\b", "Revive Drum")]
+CORREZIONI = [(r"\bla milasi\b", "l'amilasi"), (r"\bl alipasi\b", "la lipasi"), (r"\bin credula\b", "incredula"), (r"\bri[vb][aà]iv\s*dr[ua]m\b", "Revive Drum"), (r"\brevive\s*drum\b", "Revive Drum"), (r"\brevivedrum\b", "Revive Drum")]
 
 
 def parole_da_video(video):
@@ -17,7 +17,18 @@ def parole_da_video(video):
     return [(x.start, x.end, x.word.strip()) for s in segs for x in s.words]
 
 
+def unisci_apostrofi(parole):
+    """Whisper a volte spezza "l'offerta" in "l" + "'offerta": riunisce le due parti."""
+    out = []
+    for s, e, w in parole:
+        if out and (w.startswith("'") or out[-1][2].endswith("'")):
+            ps, pe, pw = out[-1]; out[-1] = (ps, e, pw + w)
+        else: out.append((s, e, w))
+    return out
+
+
 def blocchi(parole):
+    parole = unisci_apostrofi(parole)
     out, cur = [], []
     for i, (a, b, w) in enumerate(parole):
         cur.append((a, b, w))
