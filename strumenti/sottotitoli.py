@@ -7,7 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 FONT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "risorse", "font", "montserrat-latin-600-normal.woff")
 MAXC = 40          # caratteri massimi per sottotitolo (su due righe)
 NOMI = {"Revive", "Luca", "Rosa", "Marco", "Lisa", "Giorgio", "Martina", "Daniele"}
-CORREZIONI = [(r"\bla milasi\b", "l'amilasi"), (r"\bl alipasi\b", "la lipasi"), (r"\bin credula\b", "incredula"), (r"\bri[vb][aà]iv\s*dr[ua]m\b", "Revive Drum"), (r"\brevive\s*drum\b", "Revive Drum"), (r"\brevivedrum\b", "Revive Drum")]
+CORREZIONI = [(r"(\d) ?\. ?(\d{3})", r"\1.\2"), (r"\bha maggior ragione\b", "a maggior ragione"), (r"\btoilettatrice\b", "toelettatrice"), (r"\bla milasi\b", "l'amilasi"), (r"\bl alipasi\b", "la lipasi"), (r"\bin credula\b", "incredula"), (r"\bri[vb][aà]iv\s*dr[ua]m\b", "Revive Drum"), (r"\brevive\s*drum\b", "Revive Drum"), (r"\brevivedrum\b", "Revive Drum")]
 
 
 def parole_da_video(video):
@@ -44,6 +44,7 @@ def blocchi(parole):
         t = " ".join(x[2] for x in c)
         for a, b in CORREZIONI: t = re.sub(a, b, t, flags=re.I)
         t = re.sub(r"[.,;:!]+$", "", t).strip()
+        for n in NOMI: t = re.sub(r"\b" + n.lower() + r"\b", n, t) if n != "Revive" else t
         t = t[0].lower() + t[1:] if t and t.split()[0].strip(",") not in NOMI else t
         inizio = c[0][0]; fine = out[k + 1][0][0] if k + 1 < len(out) else c[-1][1] + 0.3
         fine = min(fine, c[-1][1] + 0.6)
