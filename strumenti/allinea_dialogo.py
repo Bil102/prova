@@ -69,10 +69,18 @@ def main():
         tmpf = "/tmp/claude-0/-home-user-prova/12bba21e-1c99-5858-a6f5-edb34532672e/scratchpad/_blk.wav"
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-", tmpf], input=x.tobytes())
         ws = [w for sg in wm.transcribe(tmpf, language="it", word_timestamps=True)[0] for w in sg.words]
-        cuts = [0.0] + [ (ws[k].end + ws[k + 1].start) / 2 for k in range(len(ws) - 1) if re.search(r"[.?!]$", ws[k].word.strip())]
+        def punto_quieto(a_, b_):
+            """punto più silenzioso tra fine parola e inizio della successiva (±0.12 s), per non mangiare sillabe"""
+            a_, b_ = max(0.0, a_ - 0.04), min(d, b_ + 0.12)
+            if b_ - a_ < 0.03: return (a_ + b_) / 2
+            seg = np.abs(x[int(a_ * SR):int(b_ * SR)]); w_ = 220
+            en_ = np.convolve(seg, np.ones(w_) / w_, "same"); return a_ + int(np.argmin(en_)) / SR
+        cuts = [0.0] + [punto_quieto(ws[k].end, ws[k + 1].start) for k in range(len(ws) - 1) if re.search(r"[.?!]$", ws[k].word.strip())]
         en = [t for t in frasi_en if tempi[i] - 0.05 <= t < prossimo - 0.05] or [tempi[i]]
         if len(cuts) > 1:
-            fr = [x[int(cuts[k] * SR):int((cuts[k + 1] if k + 1 < len(cuts) else d) * SR)] for k in range(len(cuts))]
+            fr = [x[int(cuts[k] * SR):int((cuts[k + 1] if k + 1 < len(cuts) else d) * SR)].copy() for k in range(len(cuts))]
+            for seg in fr:  # dissolvenza di 8 ms ai bordi: niente clic nei tagli
+                n_ = min(len(seg) // 2, int(0.008 * SR)); seg[:n_] *= np.linspace(0, 1, n_); seg[len(seg) - n_:] *= np.linspace(1, 0, n_)
             fine_loc = fine_prec
             for k, seg in enumerate(fr):
                 tk = en[min(len(en) - 1, round(k * len(en) / len(fr)))] if len(en) > 1 else None
